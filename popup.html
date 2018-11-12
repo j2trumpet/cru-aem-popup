@@ -1,0 +1,175 @@
+<style>
+    #nurturing-campaign-modal .modal-content {
+        background-color: rgba(5, 105, 155, 0.95);
+        box-shadow: 0 0 12px 6px rgba(5, 105, 155, 0.95);
+        border: none;
+        border-radius: 0;
+        color: #fff;
+    }
+    #nurturing-campaign-modal .help-block {
+        color: #f5be19;
+    }
+    #nurturing-campaign-modal .btn {
+        background-color: #eb8223;
+        border-color: #e07514;
+    }
+    #nurturing-campaign-modal .btn:hover,
+    #nurturing-campaign-modal .btn:active {
+        background-color: #c96912;
+        border-color: #a8580f;
+    }
+    #nurturing-campaign-modal .btn:focus {
+        background-color: #c96912;
+        border-color: #6b380a;
+    }
+    #nurturing-campaign-modal #recaptcha {
+        display: none;
+    }
+    @-webkit-keyframes jackInTheBox {
+        from {
+            opacity: 0;
+            -webkit-transform: scale(0.1) rotate(30deg);
+            transform: scale(0.1) rotate(30deg);
+            -webkit-transform-origin: center bottom;
+            transform-origin: center bottom;
+        }
+        50% {
+            -webkit-transform: rotate(-10deg);
+            transform: rotate(-10deg);
+        }
+        70% {
+            -webkit-transform: rotate(3deg);
+            transform: rotate(3deg);
+        }
+        to {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+    }
+    @keyframes jackInTheBox {
+        from {
+            opacity: 0;
+            -webkit-transform: scale(0.1) rotate(30deg);
+            transform: scale(0.1) rotate(30deg);
+            -webkit-transform-origin: center bottom;
+            transform-origin: center bottom;
+        }
+        50% {
+            -webkit-transform: rotate(-10deg);
+            transform: rotate(-10deg);
+        }
+        70% {
+            -webkit-transform: rotate(3deg);
+            transform: rotate(3deg);
+        }
+        to {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+    }
+    #nurturing-campaign-modal.jackInTheBox {
+        opacity: 0;
+        transition: opacity 300ms linear;
+        display: block !important;
+    }
+    #nurturing-campaign-modal.jackInTheBox.show {
+        opacity: 1;
+    }
+    #nurturing-campaign-modal.show .modal-dialog {
+        -webkit-animation-name: jackInTheBox;
+        animation-name: jackInTheBox;
+        -webkit-animation-duration: 800ms;
+        animation-duration: 800ms;
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<div id="nurturing-campaign-modal" class="modal jackInTheBox" tabindex="-1" role="dialog" style="display: none !important;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body dt">
+                <div class="db dtc-ns v-mid-ns w-50-ns ph3 tc">
+                    <h5 class="mw6 center ttu tracked-mega tc heading-underline-yellow-center relative">
+                        Everyone is on a spiritual journey.
+                    </h5>
+                    <h3 class="mw6 f3 fw5 pb3 relative lh-copy">Where are you on yours?</h3>
+                    <p class="f5 lh-165 fw3">
+                        Cru wants to help you explore and learn on your spiritual journey.</p>
+                </div>
+                <div class="campaign-form db dtc-ns v-mid-ns w-50-ns ph3">
+                    <p class="tc f5 lh-165 fw3">
+                        Get started with our five-week email series:<br/>
+                        <em>Learn More About God</em>.
+                    </p>
+                    <div class="alert alert-danger hidden" role="alert">An issue has occurred. Please try again or
+                        contact website administrator.
+                    </div>
+                    <form action="https://campaign-forms.cru.org/forms" method="post">
+                        <input type="hidden" name="id" value="55d3f16f-a8a0-4ec7-8aba-ddc237cecc32"/>
+                        <div class="form-group">
+                            <label for="cf_first_name">First Name</label>
+                            <input id="cf_first_name" class="form-control" type="text" name="first_name" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="cf_email_address">Email Address</label>
+                            <input id="cf_email_address" class="form-control" type="email" name="email_address"
+                                   placeholder="" required>
+                        </div>
+                        <div id="recaptcha" class="g-recaptcha" data-sitekey="6LdI828UAAAAAOVtMwYuLr-tvcszo3BUqwEU_MJQ"
+                             data-callback="recaptchaCallback" data-size="invisible"></div>
+                        <div class="tr">
+                            <button type="submit" class="btn btn-primary tr">Subscribe</button>
+                        </div>
+                    </form>
+                    <div class="alert alert-success hidden" role="alert">
+                        <div><strong>Thank you!</strong> You have successfully subscribed. Be on the lookout for your
+                            first email from resources@cru.org - it should arrive within the hour.
+                        </div>
+                    </div>
+                </div>
+                <script type="application/javascript"
+                        src="https://campaign-forms.cru.org/assets/campaign-form.js"></script>
+                <script type="application/javascript" src='https://www.google.com/recaptcha/api.js'></script>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+  (function ($) {
+    const cookieName = 'cru-nurturing-campaign'
+    $(function () {
+      // If div doesn't exist, don't do anything
+      if ($('#nurturing-campaign-modal').length <= 0) return
+      // If cookie is set, don't do anything
+      if (Cookies.get(cookieName)) return
+      let modalShown = false
+      let modalSuccess = false
+      function showModal () {
+        if (modalShown) return
+        modalShown = true
+        $('#nurturing-campaign-modal').modal()
+      }
+      setTimeout(function () {
+        showModal()
+      }, 10000)
+      $(window).on('scroll.' + cookieName, function () {
+        if ($(window).scrollTop() >= ($(document).height() - $(window).height()) * 0.8) {
+          $(window).off('.' + cookieName)
+          showModal()
+        }
+      })
+      $('#nurturing-campaign-modal')
+        .on('hide.bs.modal', function (e) {
+          setTimeout(() => { this.setAttribute('style', 'display: none !important;')}, 300)
+        })
+        .on('hidden.bs.modal', function (e) {
+          Cookies.set(cookieName, '1', {expires: modalSuccess ? 365 : 1})
+        })
+      window.campaignForm = window['campaignForm'] || {}
+      window.campaignForm.successCallback = function (masterPersonId) {
+        modalSuccess = true
+      }
+    })
+  })(jQuery)
+</script>
