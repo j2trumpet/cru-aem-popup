@@ -7,67 +7,42 @@
     #nurturing-campaign-modal #recaptcha {
         display: none;
     }
-    @-webkit-keyframes jackInTheBox {
+    @-webkit-keyframes fadeIn {
         from {
             opacity: 0;
-            -webkit-transform: scale(0.1) rotate(30deg);
-            transform: scale(0.1) rotate(30deg);
-            -webkit-transform-origin: center bottom;
-            transform-origin: center bottom;
         }
-        50% {
-            -webkit-transform: rotate(-10deg);
-            transform: rotate(-10deg);
-        }
-        70% {
-            -webkit-transform: rotate(3deg);
-            transform: rotate(3deg);
-        }
+
         to {
             opacity: 1;
-            -webkit-transform: scale(1);
-            transform: scale(1);
         }
     }
-    @keyframes jackInTheBox {
+
+    @keyframes fadeIn {
         from {
             opacity: 0;
-            -webkit-transform: scale(0.1) rotate(30deg);
-            transform: scale(0.1) rotate(30deg);
-            -webkit-transform-origin: center bottom;
-            transform-origin: center bottom;
         }
-        50% {
-            -webkit-transform: rotate(-10deg);
-            transform: rotate(-10deg);
-        }
-        70% {
-            -webkit-transform: rotate(3deg);
-            transform: rotate(3deg);
-        }
+
         to {
             opacity: 1;
-            -webkit-transform: scale(1);
-            transform: scale(1);
         }
     }
-    #nurturing-campaign-modal.jackInTheBox {
+    #nurturing-campaign-modal.animated {
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    #nurturing-campaign-modal.fadeIn {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+    }
+    .modal-backdrop {
         opacity: 0;
         transition: opacity 300ms linear;
-        display: block !important;
-    }
-    #nurturing-campaign-modal.jackInTheBox.show {
-        opacity: 1;
-    }
-    #nurturing-campaign-modal.show .modal-dialog {
-        -webkit-animation-name: jackInTheBox;
-        animation-name: jackInTheBox;
-        -webkit-animation-duration: 800ms;
-        animation-duration: 800ms;
     }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-<div id="nurturing-campaign-modal" class="modal jackInTheBox" tabindex="-1" role="dialog" style="display: none !important;">
+<div id="nurturing-campaign-modal" class="modal animated fadeIn" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body dt">
